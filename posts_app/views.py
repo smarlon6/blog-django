@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from posts_app.forms import PostsForm
 
 
+
 # Create your views here.
 def post_list(request):
     template_name = 'post-list.html' # template
@@ -46,3 +47,13 @@ def post_update(request, id):
         messages.success(request, 'O post foi atualizado com sucesso') # mensagem quando cria o post
         return HttpResponseRedirect(reverse('post-detail', args=[post.id])) # coloquei para retornar post-list
     return render(request, 'post-form.html', {"form": form}) # nesse template
+
+
+
+def post_delete(request, id): 
+    post = Posts.objects.get(id=id) # pelo ID pega o objeto
+    if request.method == 'POST':         
+        post.delete()
+        messages.success(request, 'O post foi deletado com sucesso') # quando deleta post 
+        return HttpResponseRedirect(reverse('post-list')) # retorna rota post-list
+    return render(request, 'post-delete.html') # nesse template

@@ -7,10 +7,10 @@ class Posts(models.Model):
     image = models.ImageField(upload_to='images/')
     create_at = models.DateTimeField(auto_now_add=True)
         
-    def __str__(self): # adicionar isso
+    def __str__(self): 
         return self.title
     
-    class Meta:  # adicionar isso
+    class Meta:  
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
         ordering = ['id']
