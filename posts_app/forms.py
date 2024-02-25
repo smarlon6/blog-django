@@ -3,5 +3,10 @@ from .models import Posts
 
 class PostsForm(forms.ModelForm):
     class Meta:
-        model = Posts # nosso modelo
-        fields = ['title', 'description', 'image'] # campos do nosso modelo poderia ser '__all__'
+        model = Posts
+        fields = ['title', 'description', 'image']
+
+    def __init__(self, *args, **kwargs): # Adiciona 
+        super().__init__(*args, **kwargs)  
+        for field_name, field in self.fields.items():   
+            field.widget.attrs['class'] = 'form-control'
