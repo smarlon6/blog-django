@@ -2,7 +2,9 @@
 {% block title %}Lista Postagens{% endblock %}
 {% block content %}
 	<h1>Todos os Posts</h1>
-	# Adiciona esse for
+	
+    <a href="{% url 'post-create' %}">Criar um Post</a>
+
 	{% for post in posts %} 
 			<img src="{{post.image.url}}" width="150" alt="{{post.title}}">
 			<p>{{post.title}}</p>
