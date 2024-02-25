@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from posts_app.models import Posts
 from django.contrib import messages
 from django.urls import reverse
@@ -35,3 +35,14 @@ def post_detail(request, id):
         'post': post
         }
     return render(request, template_name, context) # render
+
+
+def post_update(request, id):
+    post = get_object_or_404(Posts, id=id) # id do post
+    form = PostsForm(request.POST or None, request.FILES or None, instance=post) # pega as informações do form
+    if form.is_valid(): # se for valido
+        form.save() # salva
+        
+        messages.success(request, 'O post foi atualizado com sucesso') # mensagem quando cria o post
+        return HttpResponseRedirect(reverse('post-detail', args=[post.id])) # coloquei para retornar post-list
+    return render(request, 'post-form.html', {"form": form}) # nesse template
